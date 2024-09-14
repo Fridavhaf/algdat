@@ -22,7 +22,6 @@ public class GenericSorting {
             }
 
         }
-        @Override
         public String toString(){
             return first_name + " " + last_name;
         }
@@ -30,9 +29,6 @@ public class GenericSorting {
 
     }
     public static void main(String[] args) {
-        Integer[] a = {1, 8, 9, 18, 98, 2, 3, 9};
-        Character[] b = {'A', 'C', 'K', 'Z', 'L', 'Y', 'M'};
-        String[] c = {"ASF", "Kari", "poteter", "lammelår", "eple", "Petter"};
         Person[] d = {new Person("Petter", "Pettersen"), new Person("Kari", "Pettersen"), new Person("Nils", "Abrahamsen"),
                 new Person("Tor", "Toresen")};
         int person_max_index = maks(d, 0, d.length);
@@ -43,9 +39,7 @@ public class GenericSorting {
         sort(d);
         System.out.println("Etter: " + Arrays.toString(d));
     }
-    static
-    <T extends Comparable<? super T>>
-    void sort (T[] values){
+    static <T extends Comparable<? super T>> void sort (T[] values){
         // Går gjennom alle elementene i arrayet unntatt det siste, siden det siste vil være sortert etter de andre er på plass.
         for (int i = 0; i<values.length-1; ++i){
             //Finn største element i intervallet [i, values.length]. Betyr at vi må sette begin og end på maks-metoden
@@ -69,9 +63,7 @@ public class GenericSorting {
         }
     }
 
-    static
-    <T extends Comparable<? super T>>
-    int maks(T[] values, int begin, int end){
+    static <T extends Comparable<? super T>> int maks(T[] values, int begin, int end){
         T current_max = values[begin];
         int current_index = begin;
 
