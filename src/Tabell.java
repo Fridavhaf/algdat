@@ -52,12 +52,54 @@ public class Tabell {
 //            System.out.println(Tabell.lineærsøk(a,31));              // utskrift: -11
 
         //Test av lineærsøk med intervall
-        int[] a = {3,8,10,12,14,16,21,24,27,30,32,33,34,37,40};
-        System.out.println(Tabell.lineærsøk(a, 1, 3, 16));
+      //  int[] a = {3,8,10,12,14,16,21,24,27,30,32,33,34,37,40};
+      //  System.out.println(Tabell.lineærsøk(a, 1, 3, 16));
+
+        //Teste innsettinssortering
+        int[] a = {2, 4, 6, 9, 1, 3, 10};
+        innsettingssortering(a);
+        System.out.println(Arrays.toString(a));
 
     }
 
+    public static void innsettingssortering(int[] a)
+    {
+        for (int i = 1; i < a.length; i++)  // starter med i = 1
+        {
+            int verdi = a[i], j = i - 1;      // verdi er et tabellelemnet, j er en indeks
+            for (; j >= 0 && verdi < a[j]; j--) a[j+1] = a[j];  // sammenligner og flytter
+            a[j + 1] = verdi;                 // j + 1 er rett sortert plass
+        }
+    }
 
+
+    //Binærsøketre mder søket deles i 2. Mest effektiv. Returnerer indeksen til venstre hvis søkeverdien har flere like
+    public static int binærsøk3(int[] a, int fra, int til, int verdi)
+    {
+        Tabell.fratilKontroll(a.length,fra,til);  // se Programkode 1.2.3 a)
+        int v = fra, h = til - 1;  // v og h er intervallets endepunkter
+
+        while (v < h)  // obs. må ha v < h her og ikke v <= h
+        {
+            int m = (v + h)/2;  // heltallsdivisjon - finner midten
+
+            if (verdi > a[m]) v = m + 1;   // verdi må ligge i a[m+1:h]
+            else  h = m;                   // verdi må ligge i a[v:m]
+        }
+        if (h < v || verdi < a[v]) return -(v + 1);  // ikke funnet
+        else if (verdi == a[v]) return v;            // funnet
+        else  return -(v + 2);                       // ikke funnet
+    }
+    public static int binærsøk3(int[] a, int verdi)  // søker i hele a
+    {
+        return binærsøk3(a,0,a.length,verdi);  // bruker metoden over
+    }
+
+
+
+
+
+    //Lineærsøk med intervall
     public static int lineærsøk(int[] a, int fra, int til, int verdi){
         fratilKontroll(a.length, fra, til);
 
