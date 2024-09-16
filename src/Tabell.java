@@ -16,8 +16,44 @@ public class Tabell {
 //        int[] a = Tabell.randPerm(15);
 //        Tabell.flettesortering(a);
 //        System.out.println(Arrays.toString(a));
-        testTidsforbruk();
+//        testTidsforbruk();
+        String[] s = {"Per","Kari","Ole","Anne","Ali","Eva"};
+        Tabell.innsettingssortering(s);
+        System.out.println(Arrays.toString(s));  // [Ali, Anne, Eva, Kari, Ole, Per]
     }
+
+
+    // ------------------------------
+    // Generiske metoder
+    // ------------------------------
+
+    public static <T extends Comparable<? super T>> int maks(T[] a)
+    {
+        int m = 0;                     // indeks til største verdi
+        T maksverdi = a[0];            // største verdi
+
+        for (int i = 1; i < a.length; i++) if (a[i].compareTo(maksverdi) > 0)
+        {
+            maksverdi = a[i];  // største verdi oppdateres
+            m = i;             // indeks til største verdi oppdaters
+        }
+        return m;  // returnerer posisjonen til største verdi
+    } // maks
+
+    public static <T extends Comparable<? super T>> void innsettingssortering(T[] a)
+    {
+        for (int i = 1; i < a.length; i++)  // starter med i = 1
+        {
+            T verdi = a[i];        // verdi er et tabellelemnet
+            int  j = i - 1;        // j er en indeks
+            // sammenligner og forskyver:
+            for (; j >= 0 && verdi.compareTo(a[j]) < 0 ; j--) a[j+1] = a[j];
+
+            a[j + 1] = verdi;      // j + 1 er rett sortert plass
+        }
+    }
+
+
 
     // ------------------------------
     // Hovedmetode for å teste tidsforbruk
@@ -412,5 +448,6 @@ public class Tabell {
             a[j + 1] = verdi;                 // j + 1 er rett sortert plass
         }
     }
+
 
 }
